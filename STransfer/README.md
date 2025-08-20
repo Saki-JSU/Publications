@@ -1,81 +1,69 @@
-# STransfer
-# **STransfer: A Transfer Learning-Enhanced Graph Convolutional Network for Clustering Spatial Transcriptomics Data**
+# STransfer-main
+STransfer: A Transfer Learning-Enhanced Graph  Convolutional Network for Clustering Spatial  Transcriptomics Data
+# STransfer reproducibility
+
+This repository offers implementation scripts supporting the experimental procedures outlined in the publication "STransfer: A Transfer Learning-Enhanced Graph Convolutional Network for Clustering Spatial Transcriptomics Data".
+<img width="1000" height="800" alt="Fig1" src="https://github.com/user-attachments/assets/101a6b88-675f-4715-8ec7-c3b1ea1144a4" />
 
 
-## **Table of Contents**
-1. [Requirements]
-2. [Data process]
-3. [Model Initialization]
-4. [Visualization]
-5. [File Description]
-6. [Example Workflow]
-
----
-
-## Requirements
-
-### ○ Required Python Packages
-
-○ torch (2.4.0+cu118)  
-○ scanpy  
-○ pandas  
-○ numpy  
-○ scikit-learn  
-○ scipy  
-○ matplotlib  
-
----
-
-## Data process
-
-Due to upload size restrictions, we only provide pre-trained model parameters for each dataset.  
-As an example, we briefly introduce the usage of the **DLPFC** dataset below.
-
-During data preprocessing, both the **source** and **target** domain datasets must be processed simultaneously, which involves selecting highly variable genes and constructing graph-based networks:
-
-```python
-adata_s, data_s, labels_s, graph_dict_s = preprocess_slice_DLPFC(slicename_s, data_dir, device, label_mapping, n_top_genes)
-adata_t, data_t, labels_t, graph_dict_t = preprocess_slice_DLPFC(slicename_t, data_dir, device, label_mapping, n_top_genes)
-```
-
-## Model Initialization
-We then initialize the source domain encoder and classifier:
-
-```python
-src_encoder = STransferEncoder(input_dim=n_top_genes).to(device)
-src_classifier = STransferClassifier(input_dim=64).to(device)
-```
-And initialize the target domain encoder along with the domain discriminator (critic):
-
-```python
-tgt_encoder = STransferEncoder(input_dim=n_top_genes).to(device)
-critic = Discriminator().to(device)
-```
-Model Training
-Next, we train the model.
-If pre-trained parameters are available, they will be loaded automatically; otherwise, the model will be trained from scratch.
-
-## Visualization
-Finally, we will visualizate the results.
-
-## File Description
-- `ADDA.py`  
-  Implements the Adversarial Domain Adaptation (ADDA) framework used for training on source and target domains,Here, we give the DLPFC as an example.
-- `HPR.py`  
-  Contains data handling and processing methods for the MERFISH dataset for the mouse hypothalamic preoptic region.
-- ` mPFC.py`  
-  Contains code for handling and processing the STARmap dataset mPFC.
-- `modules.py`  
-  Defines core neural network modules, including encoders, classifiers, and discriminators used in the model.
-- `params.py`  
-  Stores all hyperparameter configurations and command-line argument parsing.
-- `utils.py`  
-  Includes utility functions such as metrics computation, graph construction etc.
-- `train.py`  
-  Core training script that integrates data loading, model training, and evaluation loops.
-
-## Example Workflow
-
-<img width="800" height="600" alt="flow17" src="https://github.com/user-attachments/assets/9b87446a-08c8-41ca-be57-ca15c81f1569" />
 
 
+# General Flow
+
+It is recommended the user proceeds as follows.
+
+1. Clone this repository to their local machine.
+2. Download the data.
+3. Install necessary packages.
+4. Run STransfer.
+
+## Directory
+
+- `Data` stores the datasets
+- `Figures`stores the flow picture
+- `plot` stores the visualization of the code
+- `STransfer` stores the main script of STransfer
+- `test` contains the testing script of STransfer on the datasets in the manuscript and running script of baseline methods. 
+
+## Data source and reference
+
+All datasets used in our study are from previously published studies. The DLPFC
+ dataset can be accessible via the spatialLIBD project. The HPR and mPFC datasets
+ correspond to Data 25–29 and Data 31–33, respectively, and are available from the
+ SDMBench repository.
+
+## Install necessary packages
+
+Recomended installation procedure is as follows.
+
+1. Install [Anaconda](https://www.anaconda.com/products/individual) if you do not already have it, so that you can access conda commands in terminal.
+
+2. Create a conda environment, and then activate it as follows in terminal. The code here requires the versions of the packages specified in the `requirements` file. 
+
+   ```
+   $ conda env create -n STransfer
+   ```
+
+### Run ADDA
+
+We recommend starting with the reproduction of the DLPFC dataset. The ADDA.py file is placed under the STransfer folder. This file implements the Adversarial Domain Adaptation (ADDA) framework used for training on both the source and target domains, with DLPFC used here as an example.
+
+`modules.py`
+Defines the core neural network components, including the encoders, classifier, and discriminator used in the model.
+
+`params.py`
+Stores all hyperparameter configurations and handles command-line argument parsing.
+
+`utils.py`
+Includes utility functions such as metric computation and graph construction.
+
+`train.py`
+The main training script that integrates data loading, model training, and evaluation loops.
+
+`HPR.py`
+Contains data processing and preprocessing methods for the MERFISH dataset from the mouse hypothalamic preoptic region.
+
+`mPFC.py`
+Contains code for processing the STARmap dataset of the medial prefrontal cortex (mPFC).
+
+These two files (HPR.py and mPFC.py) are placed in the test folder.
