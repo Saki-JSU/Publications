@@ -58,7 +58,7 @@ Includes utility functions such as metric computation and graph construction.
 The main training script that integrates data loading, model training, and evaluation loops.
 
 `HPR.py`
-Contains data processing and preprocessing methods for the MERFISH dataset from the mouse hypothalamic preoptic region.
+Contains data processing and preprocessing methods for the MERFISH dataset from the mouse hypothalamic preoptic region(HPR).
 
 `mPFC.py`
 Contains code for processing the STARmap dataset of the medial prefrontal cortex (mPFC).
