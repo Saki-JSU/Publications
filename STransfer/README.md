@@ -19,9 +19,8 @@ It is recommended the user proceeds as follows.
 
 ## Directory
 
-- `Figures`stores the flow picture and five datasets pictures
+- `Figures`stores the flow picture and five datasets code
 - `STransfer` stores the main script of STransfer
-- `test` contains the testing script of STransfer on the datasets in the manuscript
 
 
 ## Data source and reference
