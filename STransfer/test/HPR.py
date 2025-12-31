@@ -274,7 +274,7 @@ for slicename_s in all_slicename:
 
     adata_t.obs['x_pixel'] = adata_t.obsm['spatial'][:, 0]
     adata_t.obs['y_pixel'] = adata_t.obsm['spatial'][:, 1]
-    # 第一张图: true 标签
+    # first: true 
     adata_t.obs['true'] = labels_t.cpu()
     adata_t.obs["color_true"] = adata_t.obs['true'].map(color_mapping)
     fig, axes = plt.subplots(1, 2, figsize=(15, 10))
@@ -389,3 +389,4 @@ for slicename_s in all_slicename:
     plt.savefig(pred_clust_plot, dpi=300)
     plt.close()
     plt.show()
+
